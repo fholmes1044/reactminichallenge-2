@@ -1,0 +1,53 @@
+import React, {useState} from "react"
+import "./styles.css";
+
+export default function App() {
+  const [alldata, setAllData] = useState([])
+  const [formData, setFormData] = useState({
+    UserName: "",
+    FullName: "",
+    Age: ""
+  })
+
+  function handleNewInput(e){
+//console.log(e.target.name)
+setFormData({
+  ...formData,
+  [e.target.name]: e.target.value
+})
+//console.log(formData)
+  }
+
+  function handleSubmit(e){
+    e.preventDefault()
+    setAllData([...alldata,formData])
+    console.log(alldata)
+  }
+
+  let mapdata = alldata.map((data) =>(
+    <div>
+    <li>Username:{data.UserName}</li>
+    <li> FullName: {data.FullName}</li>
+    <li> Age: {data.Age}</li>
+    </div>
+  ))
+  return (
+    <div className="App">
+      <form>
+        <label> UserName: </label>
+        <input type="text" name="UserName" onChange={handleNewInput}/>
+        <br/>
+        <label> FullName: </label>
+        <input type="text" name="FullName" onChange={handleNewInput}/>
+        <br/>
+        <label> Age: </label>
+        <input type="text" name="Age" onChange={handleNewInput}/>
+        <br/>
+        <button onClick={handleSubmit}> Submit </button>
+        <ul>
+          {mapdata}
+        </ul>
+      </form>
+    </div>
+  );
+}
